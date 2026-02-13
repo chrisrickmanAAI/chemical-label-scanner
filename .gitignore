@@ -1,0 +1,29 @@
+# Xcode
+ios/ChemicalScanner.xcodeproj/xcuserdata/
+ios/ChemicalScanner.xcodeproj/project.xcworkspace/xcuserdata/
+ios/*.xcworkspace/xcuserdata/
+DerivedData/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Supabase
+supabase/.temp/
+supabase/.env
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
