@@ -3,6 +3,7 @@ import UIKit
 
 struct CameraView: UIViewControllerRepresentable {
     @Environment(\.dismiss) private var dismiss
+    @Binding var showCamera: Bool
     let onPhotoTaken: (Data) -> Void
 
     func makeUIViewController(context: Context) -> UIImagePickerController {
@@ -36,18 +37,22 @@ struct CameraView: UIViewControllerRepresentable {
             _ picker: UIImagePickerController,
             didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
         ) {
-            if let image = info[.originalImage] as? UIImage,
-               let data = image.jpegData(compressionQuality: 0.7)
-            {
-                parent.onPhotoTaken(data)
+            picker.dismiss(animated: true) {
+                if let image = info[.originalImage] as? UIImage,
+                   let data = image.jpegData(compressionQuality: 0.7)
+                {
+                    self.parent.onPhotoTaken(data)
+                }
+                self.parent.showCamera = false
             }
-            parent.dismiss()
         }
 
         func imagePickerControllerDidCancel(
             _ picker: UIImagePickerController
         ) {
-            parent.dismiss()
+            picker.dismiss(animated: true) {
+                self.parent.showCamera = false
+            }
         }
     }
 }

@@ -66,7 +66,7 @@ struct ListDetailView: View {
             }
         }
         .fullScreenCover(isPresented: $showCamera) {
-            CameraView { photoData in
+            CameraView(showCamera: $showCamera) { photoData in
                 Task { await analyzePhoto(photoData) }
             }
         }
@@ -116,6 +116,8 @@ struct ListDetailView: View {
                 latitude: locationService.latitude,
                 longitude: locationService.longitude
             )
+            // Small delay to ensure camera is fully dismissed before showing review sheet
+            try? await Task.sleep(for: .milliseconds(300))
             analyzeResponse = response
             showReview = true
         } catch {
